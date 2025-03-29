@@ -1,0 +1,78 @@
+
+
+*Definir as Rotas da API
+  **Edite routes/api.php
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::get('products', ['uses' => 'ProductController@products']);
+
+// methods http
+
+  GET /api/products - Lista todos os produtos
+  
+  POST /api/products - Cria um novo produto
+  
+  GET /api/products/{id} - Mostra um produto específico
+  
+  PUT/PATCH /api/products/{id} - Atualiza um produto
+  
+  DELETE /api/products/{id} - Remove um produto
+
+// ProductController
+
+public function products()
+{
+    $products = Product::all();
+    return response()->json(['products'=>$products], 200);
+}
+
+// testando no insomnia ou postman:
+
+http://127.0.0.1:8000/api/product   //deverá retornar todos os products em um formato json, deve retornar algo como:
+{
+    "products": [
+        {
+            "id": 1,
+            "name": "Produto A",
+            "price": 19.99
+        },
+        {
+            "id": 2,
+            "name": "Produto B",
+            "price": 29.99
+        }
+    ]
+}
+
+// Códigos HTTP
+
+ -GET:
+    200 OK para sucesso
+    404 Not Found quando o recurso não existe
+ -POST:
+    201 Created para criação bem-sucedida
+    400 Bad Request para dados inválidos
+    422 Unprocessable Entity para erros de validação
+ -PUT/PATCH:
+    200 OK para atualização bem-sucedida
+    204 No Content quando não há conteúdo para retornar
+    404 Not Found quando o recurso não existe
+  -DELETE:
+    204 No Content para exclusão bem-sucedida
+    404 Not Found quando o recurso não existe
+  -Erros:
+    401 para autenticação falhou
+    403 para autorização negada
+    500 para erros inesperados do servidor
+
+
+                                                                                                                              THAT IS ALL
+
+
+
+@morgado_andrade
+
+
